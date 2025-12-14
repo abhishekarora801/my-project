@@ -9,6 +9,10 @@ def initialize_session_state():
       {"role": "assistant", "content": "👋 Welcome to BC Bank Chatbot!"}
     ]
 
+  # Initialize prompt template type (default to detailed)
+  if 'prompt_template_type' not in st.session_state:
+    st.session_state.prompt_template_type = 'detailed'
+
   # Connect to ChromaDB collection
   if 'collection' not in st.session_state:
     connect_to_chromadb()

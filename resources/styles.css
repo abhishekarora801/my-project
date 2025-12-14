@@ -26,3 +26,32 @@ section[data-testid="stChatInput"] {
 .header-subtitle {
   text-align: center;
 }
+
+/* Style for the template toggle */
+div[data-testid="stRadio"] {
+  background-color: rgba(240, 242, 246, 0.9);
+  border-radius: 10px;
+  padding: 5px 10px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  max-width: 300px;
+  margin-left: 1.5rem;
+}
+
+/* Style for the toggle label */
+div[data-testid="stRadio"] label {
+  font-weight: 600;
+  color: #0e1117;
+  font-size: 0.9rem;
+}
+
+/* Style for the toggle options */
+div[data-testid="stRadio"] div[role="radiogroup"] {
+  display: flex;
+  gap: 10px;
+}
+
+/* Style for the selected option */
+div[data-testid="stRadio"] [data-baseweb="radio"] input:checked + div {
+  background-color: #4e8cff;
+  border-color: #4e8cff;
+}

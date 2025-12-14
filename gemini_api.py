@@ -12,17 +12,37 @@ GENERATION_CONFIG = genai.types.GenerationConfig(
   max_output_tokens=2500
 )
 
-# Cache for prompt template
-_PROMPT_TEMPLATE = None
+# Cache for prompt templates
+_DETAILED_PROMPT_TEMPLATE = None
+_BRIEF_PROMPT_TEMPLATE = None
 
 def get_prompt_template():
-    """Get cached prompt template or load it if not cached"""
-    global _PROMPT_TEMPLATE
-    if _PROMPT_TEMPLATE is None:
+    """Get cached prompt template based on user selection"""
+    # Use the selected template from session state (default to detailed)
+    template_type = st.session_state.get('prompt_template_type', 'detailed')
+    
+    if template_type == 'detailed':
+        return get_detailed_prompt_template()
+    else:
+        return get_brief_prompt_template()
+
+def get_detailed_prompt_template():
+    """Get cached detailed prompt template or load it if not cached"""
+    global _DETAILED_PROMPT_TEMPLATE
+    if _DETAILED_PROMPT_TEMPLATE is None:
         prompt_path = os.path.join('resources', 'detailed_prompt_template.txt')
         with open(prompt_path, 'r') as f:
-            _PROMPT_TEMPLATE = f.read()
-    return _PROMPT_TEMPLATE
+            _DETAILED_PROMPT_TEMPLATE = f.read()
+    return _DETAILED_PROMPT_TEMPLATE
+
+def get_brief_prompt_template():
+    """Get cached brief prompt template or load it if not cached"""
+    global _BRIEF_PROMPT_TEMPLATE
+    if _BRIEF_PROMPT_TEMPLATE is None:
+        prompt_path = os.path.join('resources', 'brief_prompt_template.txt')
+        with open(prompt_path, 'r') as f:
+            _BRIEF_PROMPT_TEMPLATE = f.read()
+    return _BRIEF_PROMPT_TEMPLATE
 
 def get_gemini_response(query, context, history):
     """
